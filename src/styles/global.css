@@ -1,0 +1,242 @@
+/* =========================================================================
+   Echuu 官网 — 蓝白天空 / Original Character 舞台
+   配色锚点来自 09-17 首页记录：#FFFFFF / #6EC9F7 / #C7E9FF
+   ========================================================================= */
+
+/* --- 字体 ---------------------------------------------------------------
+   PP Editorial New 本地只有个人使用 EULA，商业发布授权未核实。
+   默认作为预览字体加载，正式发布前须替换或取得授权（docs/OPEN_ITEMS.md）。
+   Shippori Mincho 随包附 OFL；Maru Buri 许可待核实。
+   ------------------------------------------------------------------------ */
+@font-face {
+  font-family: 'PP Editorial New';
+  src: url('/website/fonts/pp-editorial-new-regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter Web';
+  src: url('/website/fonts/inter-regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter Web';
+  src: url('/website/fonts/inter-bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+/* 仅在对应 locale 下声明使用，避免其他语言下载大文件 */
+@font-face {
+  font-family: 'Shippori Mincho Web';
+  src: url('/website/fonts/shippori-mincho-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+3000-30FF, U+4E00-9FFF, U+FF00-FFEF;
+}
+@font-face {
+  font-family: 'Maru Buri Web';
+  src: url('/website/fonts/maru-buri-semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+AC00-D7AF, U+1100-11FF, U+3130-318F;
+}
+
+:root {
+  /* 品牌锚点 */
+  --white: #ffffff;
+  --sky: #6ec9f7;
+  --sky-pale: #c7e9ff;
+
+  /* 阅读层 */
+  --page: #f7fbff;
+  --ink: #172b45;
+  --ink-soft: #46618a;
+  --ink-faint: #5a7093; /* 白底 5.03:1、页面底 4.84:1，达到正文 4.5:1 */
+
+  /* 交互色：对白底对比度 ≥ 4.5:1（实测见 docs/VERIFICATION.md） */
+  --accent: #0d5490;
+  --accent-strong: #093f6e;
+  --accent-tint: #e8f4ff;
+
+  --line: #d6e7f7;
+  --line-strong: #b9d6ef;
+
+  --radius-s: 10px;
+  --radius-m: 18px;
+  --radius-l: 28px;
+
+  --shell: min(1180px, 100% - 32px);
+  --gutter: 16px;
+
+  --font-brand: 'PP Editorial New', 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  --font-ui: 'Inter Web', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    'PingFang SC', 'Hiragino Sans', 'Noto Sans CJK SC', 'Microsoft YaHei', sans-serif;
+  /* 各语言标题字体，在 [lang] 规则里覆盖 */
+  --font-heading: var(--font-ui);
+
+  --step-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* 中文：蒲瓜纤云宋子集不覆盖本站新文案（实测缺字，见 docs/source-audit.md），
+   标题暂用系统中文字体，等待重新取子集或授权字体。 */
+html[lang='zh-CN'] {
+  --font-heading: 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans SC',
+    'Microsoft YaHei', sans-serif;
+}
+html[lang='ja'] {
+  --font-heading: 'Shippori Mincho Web', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+}
+html[lang='ko'] {
+  --font-heading: 'Maru Buri Web', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+}
+html[lang='en'] {
+  --font-heading: var(--font-brand);
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+body {
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img, svg, video { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--accent); text-underline-offset: 3px; }
+a:hover { color: var(--accent-strong); }
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  color: var(--ink);
+  line-height: 1.25;
+  margin: 0;
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+p { margin: 0; }
+
+/* 日文避免行首标点；韩文保留正常词间空格 */
+html[lang='ja'] p, html[lang='ja'] h1, html[lang='ja'] h2, html[lang='ja'] h3 {
+  line-break: strict;
+  word-break: normal;
+}
+html[lang='ko'] p, html[lang='ko'] h1, html[lang='ko'] h2, html[lang='ko'] h3 {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+html[lang='zh-CN'] p { line-break: strict; }
+
+.shell { width: var(--shell); margin-inline: auto; }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px;
+  margin: -1px; padding: 0; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute; left: 12px; top: -64px; z-index: 100;
+  background: var(--white); color: var(--accent);
+  padding: 12px 18px; border-radius: var(--radius-s);
+  border: 1px solid var(--line-strong);
+  transition: top 0.15s var(--step-ease);
+}
+.skip-link:focus { top: 12px; }
+
+/* --- 按钮 --------------------------------------------------------------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 48px; padding: 12px 24px;
+  border-radius: 999px; border: 1px solid transparent;
+  font: inherit; font-weight: 600; text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s var(--step-ease), border-color 0.15s var(--step-ease),
+    color 0.15s var(--step-ease), transform 0.15s var(--step-ease);
+}
+.btn--primary { background: var(--accent); color: var(--white); }
+.btn--primary:hover { background: var(--accent-strong); color: var(--white); }
+.btn--ghost {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: var(--line-strong); color: var(--accent);
+}
+.btn--ghost:hover { background: var(--white); border-color: var(--accent); }
+.btn--quiet {
+  background: transparent; border-color: var(--line-strong);
+  color: var(--ink-soft); min-height: 44px; padding: 10px 18px; font-weight: 500;
+}
+.btn--quiet:hover { color: var(--accent); border-color: var(--accent); }
+.btn:active { transform: translateY(1px); }
+.btn--small { min-height: 44px; padding: 10px 18px; font-size: 15px; }
+
+/* --- 状态标签 ----------------------------------------------------------- */
+.tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 12px; border-radius: 999px;
+  font-size: 13px; font-weight: 600; line-height: 1.4;
+  border: 1px solid var(--line-strong); background: var(--white); color: var(--ink-soft);
+  white-space: nowrap;
+}
+.tag--beta { border-color: #9fd3f2; background: #eaf6ff; color: #0b4b7f; }
+.tag--dev { border-color: #ded3ef; background: #f4f0fb; color: #4b3b74; }
+.tag--local { border-color: #e2dccc; background: #fbf8ef; color: #6a5a2e; }
+.tag--pending { border-color: var(--line-strong); background: #f2f6fb; color: var(--ink-faint); }
+
+/* --- 区块骨架 ----------------------------------------------------------- */
+.section { padding: 84px 0; position: relative; }
+.section--tight { padding: 64px 0; }
+.section__head { max-width: 40ch; margin-bottom: 36px; }
+.section__title { font-size: clamp(26px, 3.4vw, 40px); }
+.section__lede { margin-top: 12px; color: var(--ink-soft); font-size: 17px; }
+.section__foot { margin-top: 28px; color: var(--ink-faint); font-size: 15px; }
+
+/* 天空背景层：只在少量区块使用，正文不放在持续变化的半透明底上 */
+.sky-field {
+  position: relative;
+  background:
+    radial-gradient(120% 80% at 50% 0%, var(--sky-pale) 0%, rgba(199, 233, 255, 0) 62%),
+    linear-gradient(180deg, #ffffff 0%, var(--page) 100%);
+}
+
+/* --- 入场动效：文字初始即可见，动效只提供节奏 --------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.42s var(--step-ease), transform 0.42s var(--step-ease);
+  will-change: opacity, transform;
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+/* JS 未运行或 IntersectionObserver 不可用时不隐藏内容 */
+.no-js .reveal, .reveal--static { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /website/zh-CN/moodboard
+Disallow: /website/ja/moodboard
+Disallow: /website/en/moodboard
+Disallow: /website/ko/moodboard
+Disallow: /website/internal/
